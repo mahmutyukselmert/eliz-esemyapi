@@ -1,0 +1,177 @@
+$dark-bg: #181818; 
+$text-gray: #b0b0b0;
+$brand-red: #5a1a1a; 
+$divider-color: rgba(255, 255, 255, 0.1);
+
+#footer {
+    position: relative;
+    color: $text-gray;
+    font-size: 0.9rem;
+    padding-top: 2rem;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0; // SAĞ TARAFA YASLA
+        bottom: 0; // Yüksekliği fulle
+        width: 50%; // Geniş bir alana yay (yoksa çizgi gibi durur)
+        pointer-events: none; // Linklere tıklamayı engellemesin
+        z-index: 0; // Yazıların arkasında kalsın
+        opacity: 0.8; // Genel şeffaflık
+
+        // RADIAL GRADIENT (Görseldeki gibi köşeden yayılan efekt için en iyisi)
+        background: radial-gradient(
+            circle at center right,
+            /* Işık kaynağı sağ üst köşe */ rgba(120, 18, 25, 0.7) 0%,
+            /* Merkez: Koyu Kırmızı */ rgba(78, 18, 19, 0.4) 40%,
+            /* Orta: Azalarak yayılma */ transparent 80% /* Bitiş: Tamamen yok oluş */
+        );
+
+        // Yumuşatmak için blur efekti (Opsiyonel ama daha iyi durur)
+        filter: blur(40px);
+    }
+
+    a {
+        text-decoration: none;
+        color: $text-gray;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+
+    // Üst Kısım
+    .footer-top {
+
+        .footer-contact {
+            gap: 5rem;
+            .contact-link {
+                color: #fff;
+                font-weight: 600;
+                font-size: 1.5rem;
+                text-decoration: underline; 
+            }
+        }
+
+        .social-icons {
+            a {
+                color: #fff;
+                font-size: 1.2rem;
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+
+    .footer-divider {
+        border-color: $divider-color;
+        opacity: 1;
+        margin: 0;
+    }
+
+    .footer-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        .footer-item {
+            gap: 0.6rem;
+        }
+
+        .footer-title {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 1.125rem;
+            font-size: 1rem;
+            font-family: "Raleway", sans-serif;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+
+            a {
+                font-size: 1rem;
+                font-weight: 400;
+                font-family: "Raleway", sans-serif;
+            }
+        }
+    }
+
+    // Markalar Kutusu (Koyu Kırmızı Alan)
+    .brand-box-container {
+        .brand-box {
+            background: #4e1213;
+            background: linear-gradient(
+                90deg,
+                rgba(78, 18, 19, 1) 10%,
+                rgba(25, 18, 18, 1) 30%,
+                rgba(21, 18, 18, 1) 70%,
+                rgba(78, 18, 19, 1) 90%
+            );
+            border-radius: 1.875rem;
+            backdrop-filter: blur(5px);
+
+            .partner-logo {
+                max-height: 3.75rem;
+                opacity: 0.8;
+                transition: opacity 0.3s ease;
+                object-fit: contain;
+
+                &:hover {
+                    cursor: pointer;
+                    opacity: 1;
+                }
+            }
+        }
+
+        @media (max-width: 576px) {
+            .brand-box {
+                padding: 1rem 0.5rem;
+                .partner-logo {
+                    margin: 1rem 0 1rem 0;
+                    width: 100%;
+                    max-height: 2.5rem;
+                }
+            }
+        }
+    }
+
+    // En Alt Kısım
+    .footer-bottom {
+        .copyright-text {
+            p {
+                margin: 0;
+                color: #fff;
+                font-size: 0.875rem;
+            }
+        }
+
+        .privacy-links {
+            a {
+                color: #fff;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-top {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+
+        .footer-contact {
+            flex-direction: column;
+            gap: 0.5rem !important;
+        }
+    }
+
+    .footer-bottom {
+        text-align: center;
+        .col-md-4 {
+            margin-bottom: 0.5rem;
+            text-align: center !important;
+        }
+    }
+}

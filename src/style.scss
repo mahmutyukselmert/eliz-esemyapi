@@ -1,0 +1,709 @@
+@use "./scss/_root.scss";
+@use "./scss/_variables.scss" as *;
+
+$nav-pills-link-border-radius: 1.25rem;
+@use "../node_modules/bootstrap/scss/bootstrap" with (
+  $theme-colors: $custom-theme-colors,
+  $form-check-input-checked-bg-color: $primary,
+  $form-check-input-checked-border-color: $primary,
+  $input-placeholder-color: #fff,
+  $focus-ring-width: 0,
+  $link-color: $primary,
+  $link-hover-color: $primary-hover,
+  $grid-breakpoints: $grid-breakpoints,
+  $container-max-widths: $container-max-widths,
+  $nav-pills-link-active-bg: $primary,
+  $nav-pills-link-active-color: #fff,
+  $nav-pills-border-radius: 1.25rem
+);
+$font-primary: "Sora";
+
+@use "./font.css";
+@use "./icons.css";
+@use "./scss/animations.scss";
+@use "./scss/components.scss";
+@use "./scss/header.scss";
+@use "./scss/hero-slider.scss";
+@use "./scss/footer.scss";
+
+.fw-extrabold {
+  font-weight: 800;
+}
+
+html,
+body {
+  font-family: var(--font-primary);
+  background-color: #121212;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+
+  /* 1. Ultra Geniş Ekranlar (1400px ve üzeri - XXL) */
+  @media (min-width: 1400px) {
+    font-size: 16px;
+  }
+
+  /* 2. Masaüstü / Büyük Ekranlar (1200px - 1400px - XL) */
+  @media (max-width: 1399.98px) {
+    font-size: 15px; /* Belirlediğin LG hedefi */
+  }
+
+  /* 3. Laptop / Küçük Masaüstü (1024px - 1200px) */
+  @media (max-width: 1199.98px) {
+    font-size: 14.5px;
+  }
+
+  /* 4. Tablet - Yatay (992px - 1024px) */
+  @media (max-width: 1023.98px) {
+    font-size: 14px;
+  }
+
+  /* 5. Tablet - Dikey (768px - 992px) */
+  @media (max-width: 991.98px) {
+    font-size: 13.5px;
+  }
+
+  /* 6. Büyük Telefonlar (576px - 768px) */
+  @media (max-width: 767.98px) {
+    font-size: 13px;
+  }
+
+  /* 7. Küçük Telefonlar (576px ve altı) */
+  @media (max-width: 575.98px) {
+    font-size: 12px !important;
+  }
+}
+
+.section-title {
+  font-size: 1.5rem;
+  color: #b6b6b6;
+  margin-bottom: 1.5rem;
+  @media (max-width: 576px) {
+    font-size: 1.25rem;
+  }
+}
+.section-subtitle {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  @media (max-width: 576px) {
+    font-size: 1.625rem;
+  }
+}
+.section-content {
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  color: #ffffff;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  p {
+    font-size: 1rem;
+    color: #ffffff;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+}
+.content {
+  font-size: 1rem;
+  color: #ffffff;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+
+  p {
+    font-size: 1rem;
+    color: #ffffff;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  color: #fff;
+  font-size: 1.125rem;
+  transition: all 0.3s ease-in-out;
+  border-color: #a2a2a2;
+  border-radius: 1.25rem;
+  display: inline-block;
+  padding: 0.875rem 2.5rem;
+  max-height: 3.125rem;
+  line-height: 1;
+
+  &.rounded-full {
+    border-radius: 50rem;
+  }
+
+  &:hover {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+  }
+
+  &.active-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    &:hover {
+      background-color: var(--primary-hover);
+      border-color: var(--primary-hover);
+      transform: scale(1.1);
+    }
+  }
+}
+
+.background-image {
+  position: fixed;
+  top: 0; // Görselin tam oturması için 0 daha iyi olabilir
+  right: 0;
+  width: 75%; // Görseldeki gibi geniş bir alan kaplasın
+  height: 100%;
+  max-height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.3; // Görseldeki gibi çok daha silik bir doku için
+  mix-blend-mode: screen;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    // Hem soldan hem de üstten/alttan yumuşatarak siyahlığın içine gömüyoruz
+    -webkit-mask-image:
+      linear-gradient(to left, #292929 10%, transparent 90%),
+      linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+    mask-image:
+      linear-gradient(to left, black 10%, transparent 90%),
+      linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+
+    -webkit-mask-composite: source-in; // Maskeleri birleştirir
+    mask-composite: intersect;
+  }
+
+  // Görseldeki sağ alt/sağ üst kırmızı parlama ve genel karartma için
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    // Sol tarafa doğru siyahlık, sağ tarafa doğru ise çok hafif şeffaf kırmızı geçişi
+    background:
+      linear-gradient(to right, #000 15%, transparent 60%),
+      radial-gradient(circle at bottom right, rgba(100, 31, 35, 0.4) 0%, transparent 50%);
+    z-index: 1;
+  }
+}
+
+.stats-item {
+  background-color: #292929;
+  background: radial-gradient(circle at top right, rgb(124 39 39), rgb(28 28 28 / 90%) 30%, rgb(26, 26, 26) 60%);
+  text-align: left;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  padding: 2.875rem 1.875rem;
+  border-radius: 1.25rem;
+  max-height: 10.625rem;
+  line-height: 1;
+
+  .stats-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+  }
+
+  .stats-text {
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    color: #b6b6b6;
+  }
+}
+
+.about-section {
+  position: relative;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+  isolation: isolate;
+  background-color: #121212;
+  padding: 3rem 0 0 0;
+  margin-bottom: 0;
+  color: #ffffff;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+    background: linear-gradient(to top, #121212 10%, rgba(18, 18, 18, 0.8) 20%, transparent 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .about-image-area {
+    position: relative;
+    height: 34.0625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      max-height: 34.0625rem;
+      object-fit: cover;
+    }
+  }
+  @media (max-width: 768px) {
+    .about-image-area {
+      max-height: 20rem;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.homepage-services-section {
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0 0 0;
+
+  .service-listing-wrapper {
+    position: relative;
+    background:
+      radial-gradient(circle at bottom left, rgb(124 39 39), transparent 35%),
+      radial-gradient(circle at top right, rgb(124 39 39), rgb(28 28 28 / 90%) 30%, rgb(26, 26, 26) 60%);
+
+    background-color: rgb(26, 26, 26);
+    border-radius: 1.25rem;
+
+    padding: 2rem 2rem 2.5rem 2rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .content p {
+      font-size: 1.125rem;
+      font-family: "Realeway", sans-serif;
+    }
+
+    .service-image-area {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      img {
+        width: 100%;
+        height: auto;
+        max-height: 29.375rem;
+        min-height: 29.375rem;
+        border-radius: 1.875rem;
+      }
+    }
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    color: #b6b6b6;
+    margin-bottom: 1.5rem;
+  }
+  .section-subtitle {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  ul li {
+    list-style: none;
+    border-bottom: 1px solid #fff;
+    a {
+      font-family: "Realeway", sans-serif;
+      font-size: 1.3125rem;
+      color: #ffffff;
+      padding: 0.5rem 0;
+      display: block;
+      text-decoration: none;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: $primary-hover;
+        text-decoration: none;
+        padding: 0.5rem 0.5rem;
+      }
+    }
+  }
+
+  @media (max-width: 36rem) {
+    .section-title {
+      font-size: 1.25rem;
+    }
+    .section-subtitle {
+      font-size: 1.75rem;
+    }
+    .service-listing-wrapper {
+      flex-direction: column;
+      .service-image-area {
+        margin-top: 2rem;
+      }
+    }
+  }
+}
+
+.homepage-products-section {
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0 0 0;
+  .homepage-products-left {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+  .category-list {
+    width: 100%;
+    li {
+      list-style: none;
+      margin-bottom: 1rem;
+      a {
+        font-size: 1.5rem;
+        color: #ffffff;
+        padding: 0.5rem 0;
+        display: block;
+        text-decoration: none;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: var(--primary);
+          text-decoration: none;
+          padding: 0.5rem 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+.references-section {
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0 4rem 0;
+  .grid-card-item {
+    max-height: 6.25rem;
+    min-height: 6.25rem;
+  }
+
+  .filter-button-group {
+    .btn-outline-primary {
+      border-radius: 50px; // Daha modern, yuvarlak hatlar
+      padding: 0.5rem 1.5rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-color: rgba($primary, 0.3); // Varsayılan border daha hafif
+
+      &:hover,
+      &.active {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: #fff;
+        box-shadow: 0 4px 15px rgba($primary, 0.3);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  .active-filter-info {
+    display: flex;
+    align-items: center;
+
+    & > span {
+      color: #ccc;
+    }
+
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      background: var(--primary);
+      border: 1px solid var(--primary);
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+
+      span {
+        color: #fff;
+      }
+
+      .remove-filter {
+        margin-left: 8px;
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+
+        i {
+          font-size: 12px;
+          transition: transform 0.2s;
+        }
+
+        &:hover i {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}
+
+.products-section {
+  .section-title {
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .section-subtitle {
+    font-size: 1.875rem;
+  }
+  .offer-block {
+    position: relative;
+    align-items: center;
+    border-radius: 1.25rem;
+    padding: 2rem 2.75rem;
+    margin-top: 6rem;
+    background-color: #2b2a2a;
+    p {
+      font-size: 1rem;
+      color: #ffffff;
+      line-height: 1.8;
+      margin-bottom: 0rem;
+    }
+  }
+}
+
+.wrapper {
+  position: relative;
+  overflow: hidden;
+  p {
+    font-size: 1rem;
+    color: #ffffff;
+    line-height: 1.8;
+    font-family: var(--font-secondary);
+    margin-bottom: 1.5rem;
+  }
+}
+
+.contact-us-section {
+  .hero-title {
+    font-size: 1.875rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+  .hero-subtitle {
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .hero-description {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    p {
+      font-size: 1.125rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+  .map {
+    border-radius: 1.25rem;
+    overflow: hidden;
+    height: 27.5rem;
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+  .list-unstyled {
+    li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: var(--primary);
+        border-radius: 50%;
+        margin-right: 1rem;
+        flex-shrink: 0;
+        i {
+          color: #fff;
+          font-size: 1.25rem;
+        }
+      }
+      p {
+        font-size: 1rem;
+        color: #ffffff;
+        margin: 0;
+      }
+      a {
+        color: #ffffff;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+.product-detail-image {
+  position: relative;
+  background-color: #302f2f;
+  max-height: 31.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.875rem;
+  padding: 1rem;
+  #productCarousel {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .embla__viewport {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    .embla__container {
+      height: 26rem;
+      display: flex;
+      align-items: center;
+    }
+    .embla-controls {
+      height: 3.75rem;
+    }
+  }
+  .product-card {
+    .product-image {
+      border-radius: 1.875rem;
+      img {
+        width: 100%;
+        height: auto;
+        max-height: 26rem;
+        border-radius: 1.875rem;
+      }
+    }
+  }
+}
+
+#pills-tab {
+  gap: 3rem;
+  button.nav-link {
+    background-color: #2e2d2d;
+    border-radius: 1.25rem;
+    height: 3.625rem;
+    width: 13rem;
+    color: #ffffff;
+    &.active {
+      background-color: var(--primary);
+      color: #fff;
+    }
+  }
+  @media (max-width: 36rem) {
+    gap: 1rem;
+    row-gap: 1rem;
+    li {
+      flex: 1 1 calc(50% - 0.5rem);
+      button.nav-link {
+        width: 100%;
+      }
+    }
+  }
+}
+#pills-tabContent {
+  margin-top: 1rem;
+  background-color: #2a2a2a;
+  border-radius: 1.25rem;
+  color: #ffffff;
+  .tab-pane {
+    padding: 2rem 1.5rem;
+    margin-bottom: 0;
+  }
+}
+
+.product-detail-section {
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 992px) {
+  .product-detail-slide-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    .embla-controls {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1rem;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.project-details-container {
+  background-color: #121212;
+  padding: 2rem 0;
+  color: #fff;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+
+      strong {
+        flex: 0 0 18.75rem;
+        font-weight: 600;
+        position: relative;
+        padding-right: 20px;
+
+        &::after {
+          content: ":";
+          position: absolute;
+          right: 5px;
+          font-weight: 400;
+        }
+      }
+
+      span {
+        flex: 1;
+        color: #ccc;
+        padding-left: 10px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 991.98px) {
+        flex-direction: column;
+
+        strong {
+          flex: 0 0 auto;
+          width: 100%;
+          margin-bottom: 5px;
+
+          &::after {
+            display: none;
+          }
+        }
+
+        span {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+}
