@@ -599,7 +599,7 @@ body {
 #pills-tab {
   gap: 3rem;
   button.nav-link {
-    background-color: #2e2d2d;
+    background: radial-gradient(circle at top right, #7c2727, rgba(46, 45, 45, .9) 30%, #2e2d2d 60%);
     border-radius: 1.25rem;
     height: 3.625rem;
     width: 13rem;
@@ -706,4 +706,9 @@ body {
       }
     }
   }
+}
+
+.products-section {
+  position: relative;
+  z-index: 2;
 }

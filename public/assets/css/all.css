@@ -13356,6 +13356,40 @@ form .career-file-upload .upload-area:hover {
   transform: translateY(-2px);
 }
 
+.accordion button.accordion-button {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  margin-bottom: 0rem;
+}
+.accordion button.accordion-button::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 11.354a.5.5 0 0 0 .708 0L8 5.707l5.646 5.647a.5.5 0 0 0 .708-.708l-6-6a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 0 .708z'/%3e%3c/svg%3e");
+}
+.accordion button.accordion-button.collapsed::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+.accordion .accordion-item {
+  background: transparent;
+  border: 0;
+}
+.accordion .accordion-item:first-of-type .accordion-header {
+  border-radius: 1rem 1rem 0 0;
+}
+.accordion .accordion-item .accordion-header {
+  background: #1a1a1a;
+  border-bottom: 0;
+}
+.accordion .accordion-item .accordion-body {
+  color: #fff;
+  border: 0;
+}
+.accordion .accordion-item:last-of-type .accordion-header {
+  border-radius: 0 0 1rem 1rem;
+}
+.accordion .accordion-item:last-of-type .accordion-body {
+  border-radius: 0 0 1rem 1rem;
+}
+
 header {
   position: absolute;
   background: transparent;
@@ -13515,6 +13549,7 @@ header nav.navbar .dropdown-menu {
   border-top: 0;
   background: #fff;
   border-radius: 1rem;
+  z-index: 1001;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3411764706);
 }
 header nav.navbar .dropdown-menu li {
@@ -13657,6 +13692,8 @@ header nav.navbar .dropdown-submenu:hover > .dropdown-menu {
     margin: 0;
     padding: 2rem 1rem;
     height: auto;
+    max-height: 600px;
+    overflow: auto;
   }
   header nav.navbar .navbar-collapse.collapse.show > .navbar-nav {
     margin-top: 3rem;
@@ -13722,6 +13759,11 @@ header nav.navbar .dropdown-submenu:hover > .dropdown-menu {
     transform: scale(1) translateY(0);
   }
 }
+main .hero {
+  position: relative;
+  z-index: 1;
+}
+
 #carouselSlider {
   position: relative;
   height: 100vh;
@@ -13930,7 +13972,7 @@ header nav.navbar .dropdown-submenu:hover > .dropdown-menu {
 }
 .sub-page #carouselSlider .carousel-inner .carousel-item .carousel-caption .hero-subtitle {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -14114,7 +14156,7 @@ header nav.navbar .dropdown-submenu:hover > .dropdown-menu {
 #footer .footer-top .footer-contact .contact-link {
   color: #fff;
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 1.125rem;
   text-decoration: underline;
 }
 #footer .footer-top .social-icons a {
@@ -14744,7 +14786,7 @@ body {
   gap: 3rem;
 }
 #pills-tab button.nav-link {
-  background-color: #2e2d2d;
+  background: radial-gradient(circle at top right, #7c2727, rgba(46, 45, 45, 0.9) 30%, #2e2d2d 60%);
   border-radius: 1.25rem;
   height: 3.625rem;
   width: 13rem;
@@ -14845,6 +14887,11 @@ body {
   .project-details-container ul li span {
     padding-left: 0;
   }
+}
+
+.products-section {
+  position: relative;
+  z-index: 2;
 }
 
 /*# sourceMappingURL=all.css.map */
