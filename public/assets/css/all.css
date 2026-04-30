@@ -3,12 +3,12 @@
   --primary: #e30b18;
   --primary-hover: #d10513;
   --primary-rgba: rgba(227, 11, 24, 0.1);
-  --font-primary: "Sora", sans-serif;
-  --font-secondary: "Raleway", sans-serif;
+  --font-primary: 'Sora', sans-serif;
+  --font-secondary: 'Raleway', sans-serif;
 }
 
 /*!
- * Bootstrap  v5.3.7 (https://getbootstrap.com/)
+ * Bootstrap  v5.3.8 (https://getbootstrap.com/)
  * Copyright 2011-2025 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -544,6 +544,10 @@ legend + * {
 [type=search] {
   -webkit-appearance: textfield;
   outline-offset: -2px;
+}
+[type=search]::-webkit-search-cancel-button {
+  cursor: pointer;
+  filter: grayscale(1);
 }
 
 /* rtl:raw:
@@ -6214,6 +6218,7 @@ textarea.form-control-lg {
 .spinner-grow,
 .spinner-border {
   display: inline-block;
+  flex-shrink: 0;
   width: var(--bs-spinner-width);
   height: var(--bs-spinner-height);
   vertical-align: var(--bs-spinner-vertical-align);
@@ -13047,15 +13052,15 @@ textarea.form-control-lg {
   cursor: pointer;
 }
 
-.circle-web-animation {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .circle-web-animation.left-bottom-animation {
   position: absolute;
   bottom: 5%;
   left: -10%;
+}
+.circle-web-animation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .circle-web-animation::before {
   content: "";
@@ -13230,7 +13235,6 @@ textarea.form-control-lg {
   padding-left: 1rem;
   position: relative;
   filter: grayscale(60%);
-  transition: transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease;
   transform: scale(0.92);
   opacity: 0.6;
   height: 420px;
@@ -13390,6 +13394,81 @@ form .career-file-upload .upload-area:hover {
   border-radius: 0 0 1rem 1rem;
 }
 
+.image-zoom-modal .modal-content {
+  background: #000;
+  border: 0;
+}
+.image-zoom-modal .modal-body {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.image-zoom-modal img {
+  max-width: 100vw;
+  max-height: 100vh;
+  object-fit: cover;
+}
+.image-zoom-modal .carousel-item {
+  overflow: hidden;
+}
+.image-zoom-modal .carousel-item img {
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain;
+}
+.image-zoom-modal .zoom-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  filter: invert(1);
+  z-index: 10;
+}
+
+.zoom-trigger {
+  cursor: zoom-in;
+}
+
+.modal {
+  background: rgba(0, 0, 0, 0.7803921569);
+}
+.modal .btn-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  z-index: 10;
+  color: #fff;
+  font-size: 2rem;
+  background: transparent;
+  border: 0;
+}
+.modal .modal-content {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.modal .modal-header {
+  background-color: transparent;
+  border: 0;
+  padding: 1rem 1.5rem 0 0;
+  background: transparent;
+}
+.modal .modal-header .btn-close {
+  filter: invert(1);
+}
+.modal .modal-body {
+  overflow: hidden;
+  padding: 0;
+  margin-bottom: 0;
+}
+.modal .modal-body iframe {
+  width: 100%;
+  min-height: 35rem;
+  height: auto;
+  border: 0;
+}
+
 header {
   position: absolute;
   background: transparent;
@@ -13416,7 +13495,6 @@ header nav.navbar {
   height: 8rem;
   padding: 0 0.5rem;
   z-index: 1;
-  /*Custom Toggler*/
 }
 header nav.navbar .logo-wrapper {
   width: 14.625rem;
@@ -13438,6 +13516,20 @@ header nav.navbar .navbar-collapse .header-right-wrapper .social-icons li a.nav-
 }
 header nav.navbar .navbar-collapse .header-right-wrapper .social-icons li a.nav-link:hover {
   color: #fff;
+}
+@media (max-width: 1650px) {
+  header nav.navbar .navbar-collapse .header-right-wrapper .social-icons {
+    margin-top: 0;
+  }
+  header nav.navbar .navbar-collapse .header-right-wrapper .social-icons li {
+    margin: 0;
+  }
+  header nav.navbar .navbar-collapse .header-right-wrapper .social-icons li a.nav-link {
+    padding: 0.5rem 0.4rem;
+  }
+}
+header nav.navbar {
+  /*Custom Toggler*/
 }
 header nav.navbar .custom-toggler {
   border: none;
@@ -13533,6 +13625,11 @@ header nav.navbar .nav-item a.nav-link:hover::before, header nav.navbar .nav-ite
 }
 header nav.navbar .nav-item a.nav-link:hover {
   transform: scale(0.95);
+}
+@media (max-width: 1650px) {
+  header nav.navbar .nav-item {
+    margin: 0;
+  }
 }
 header nav.navbar .language-wrapper a {
   text-decoration: none;
@@ -13632,6 +13729,11 @@ header nav.navbar .dropdown-submenu:hover > .dropdown-menu {
   }
   header nav.navbar .dropdown-submenu:hover > .dropdown-menu {
     display: block;
+  }
+}
+@media (max-width: 1650px) {
+  header nav.navbar {
+    height: 6rem;
   }
 }
 @media (max-width: 1200px) {
@@ -13766,8 +13868,7 @@ main .hero {
 
 #carouselSlider {
   position: relative;
-  height: 100vh;
-  /* Sol alt vinyet gölgesi ve içerik taşıyıcı */
+  height: calc(100vh + 8rem);
 }
 #carouselSlider .carousel-inner {
   height: 100%;
@@ -13821,6 +13922,14 @@ main .hero {
   color: #fff;
   margin-bottom: 1.5rem;
 }
+@media (max-width: 1650px) {
+  #carouselSlider .carousel-inner .carousel-item .carousel-caption .hero-subtitle {
+    font-size: 2.5rem;
+  }
+}
+#carouselSlider {
+  /* Sol alt vinyet gölgesi ve içerik taşıyıcı */
+}
 #carouselSlider .carousel-bottom-area {
   position: absolute;
   bottom: 0;
@@ -13865,6 +13974,11 @@ main .hero {
   margin-bottom: 0;
   font-size: 1.125rem;
   font-weight: 400;
+}
+@media (max-width: 1650px) {
+  #carouselSlider {
+    height: calc(100vh + 6rem);
+  }
 }
 
 @media (max-width: 992px) {
@@ -13990,6 +14104,17 @@ main .hero {
 .sub-page #carouselSlider .carousel-inner .carousel-item .carousel-caption .carousel-content p {
   font-size: 1.125rem;
 }
+@media (max-width: 1650px) {
+  .sub-page #carouselSlider .carousel-inner .carousel-item .carousel-caption .carousel-content p {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 1650px) {
+  .sub-page #carouselSlider .carousel-inner .carousel-item .carousel-caption .btn-outline-primary {
+    padding: 0.875rem 1.4rem;
+    font-size: 1rem;
+  }
+}
 .sub-page #carouselSlider .carousel-inner .carousel-item .carousel-caption .service-page-banner-image {
   min-width: 24.375rem;
   max-height: 24.375rem;
@@ -14000,6 +14125,16 @@ main .hero {
   border-radius: 1.875rem;
   min-width: 24.375rem;
   max-height: 24.375rem;
+}
+@media (max-width: 1650px) {
+  .sub-page #carouselSlider .carousel-inner .carousel-item .carousel-caption .service-page-banner-image {
+    min-width: 20rem;
+    max-height: 20rem;
+  }
+  .sub-page #carouselSlider .carousel-inner .carousel-item .carousel-caption .service-page-banner-image img {
+    min-width: 20rem;
+    max-height: 20rem;
+  }
 }
 .sub-page #carouselSlider .carousel-inner .carousel-item .carousel-caption .carousel-description {
   position: absolute;
@@ -14255,14 +14390,7 @@ body {
   font-family: var(--font-primary);
   background-color: #121212;
   overflow-x: hidden;
-  overscroll-behavior: none;
   /* 1. Ultra Geniş Ekranlar (1400px ve üzeri - XXL) */
-  /* 2. Masaüstü / Büyük Ekranlar (1200px - 1400px - XL) */
-  /* 3. Laptop / Küçük Masaüstü (1024px - 1200px) */
-  /* 4. Tablet - Yatay (992px - 1024px) */
-  /* 5. Tablet - Dikey (768px - 992px) */
-  /* 6. Büyük Telefonlar (576px - 768px) */
-  /* 7. Küçük Telefonlar (576px ve altı) */
 }
 @media (min-width: 1400px) {
   html,
@@ -14270,11 +14398,19 @@ body {
     font-size: 16px;
   }
 }
+html,
+body {
+  /* 2. Masaüstü / Büyük Ekranlar (1200px - 1400px - XL) */
+}
 @media (max-width: 1399.98px) {
   html,
   body {
     font-size: 15px; /* Belirlediğin LG hedefi */
   }
+}
+html,
+body {
+  /* 3. Laptop / Küçük Masaüstü (1024px - 1200px) */
 }
 @media (max-width: 1199.98px) {
   html,
@@ -14282,11 +14418,19 @@ body {
     font-size: 14.5px;
   }
 }
+html,
+body {
+  /* 4. Tablet - Yatay (992px - 1024px) */
+}
 @media (max-width: 1023.98px) {
   html,
   body {
     font-size: 14px;
   }
+}
+html,
+body {
+  /* 5. Tablet - Dikey (768px - 992px) */
 }
 @media (max-width: 991.98px) {
   html,
@@ -14294,11 +14438,19 @@ body {
     font-size: 13.5px;
   }
 }
+html,
+body {
+  /* 6. Büyük Telefonlar (576px - 768px) */
+}
 @media (max-width: 767.98px) {
   html,
   body {
     font-size: 13px;
   }
+}
+html,
+body {
+  /* 7. Küçük Telefonlar (576px ve altı) */
 }
 @media (max-width: 575.98px) {
   html,
@@ -14438,6 +14590,14 @@ body {
   font-size: 1.125rem;
   text-transform: uppercase;
   color: #b6b6b6;
+}
+@media (max-width: 1650px) {
+  .stats-item .stats-number {
+    font-size: 2rem;
+  }
+  .stats-item .stats-text {
+    font-size: 1rem;
+  }
 }
 
 .about-section {
@@ -14892,6 +15052,29 @@ body {
 .products-section {
   position: relative;
   z-index: 2;
+}
+
+.image-zoom-modal .modal-body {
+  height: 100vh;
+}
+.image-zoom-modal .modal-body .carousel,
+.image-zoom-modal .modal-body .carousel-inner,
+.image-zoom-modal .modal-body .carousel-item {
+  height: 100%;
+}
+.image-zoom-modal .modal-body img {
+  max-height: 90vh;
+  width: auto;
+  margin: auto;
+  object-fit: contain;
+}
+.image-zoom-modal .carousel-control-prev,
+.image-zoom-modal .carousel-control-next {
+  width: 5%;
+}
+
+#referenceDetailCarousel img {
+  cursor: zoom-in;
 }
 
 /*# sourceMappingURL=all.css.map */

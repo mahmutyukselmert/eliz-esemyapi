@@ -1,12 +1,12 @@
 {
-  "name": "mat-reklam",
+  "name": "eliz-esemyapi",
   "version": "1.0.0",
   "description": "",
   "scripts": {
     "dev-scss": "sass --watch src/style.scss:public/assets/css/main.css --load-path=src/scss",
     "dev-js": "esbuild src/main.js --bundle --minify --outfile=public/assets/js/main.js --watch",
-    "dev-php": "php -S localhost:8000 -t public/",
-    "dev-bsync": "browser-sync start --proxy localhost:8000 --files 'public/**/*.html,public/**/*.php,public/assets/css/*.css,public/assets/js/*.js'",
+    "dev-php": "php -S localhost:8001 -t public/",
+    "dev-bsync": "browser-sync start --proxy localhost:8001 --files 'public/**/*.html,public/**/*.php,public/assets/css/*.css,public/assets/js/*.js'",
     "dev": "npm-run-all --parallel dev-scss dev-js dev-bsync dev-php",
     "build-scss": "sass src/style.scss public/assets/css/all.css",
     "build-postcss-purge": "postcss public/assets/css/all.css -o public/assets/css/main.css",

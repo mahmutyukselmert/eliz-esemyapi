@@ -302,7 +302,7 @@ if (referenceNode) {
 
 document.querySelectorAll('.career-file-upload input[type="file"]').forEach(input => {
   input.addEventListener('change', function (e) {
-    const label = this.nextElementSibling; 
+    const label = this.nextElementSibling;
     const uploadText = label.querySelector('.upload-text');
     const defaultText = label.getAttribute('data-default-text');
     const activeColor = label.getAttribute('data-selected-color');
@@ -316,5 +316,39 @@ document.querySelectorAll('.career-file-upload input[type="file"]').forEach(inpu
       label.style.removeProperty('border-color');
       document.querySelector('.career-file-upload i.icon-upload').style.removeProperty('color');
     }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const emblaSlider = document.querySelector('#referenceDetailCarousel');
+  const zoomModalElement = document.getElementById('imageZoomModal');
+  const modalInner = zoomModalElement.querySelector('.carousel-inner');
+  const bsModal = new bootstrap.Modal(zoomModalElement);
+  const bsCarouselElement = document.getElementById('modalCarousel');
+  const sourceImages = emblaSlider.querySelectorAll('.embla__slide img');
+  sourceImages.forEach((img, index) => {
+    img.addEventListener('click', () => {
+      modalInner.innerHTML = '';
+
+      sourceImages.forEach((sourceImg, i) => {
+        const isActive = (i === index) ? 'active' : '';
+        const slideHTML = `
+                    <div class="carousel-item ${isActive}">
+                        <div class="d-flex align-items-center justify-content-center h-100">
+                            <img src="${sourceImg.src}" class="d-block img-fluid" alt="Zoomed Image">
+                        </div>
+                    </div>
+                `;
+        modalInner.insertAdjacentHTML('beforeend', slideHTML);
+      });
+      bsModal.show();
+      const bsCarousel = new bootstrap.Carousel(bsCarouselElement, {
+        interval: false,
+        ride: false
+      });
+    });
+  });
+  zoomModalElement.addEventListener('hidden.bs.modal', function () {
+    modalInner.innerHTML = '';
   });
 });

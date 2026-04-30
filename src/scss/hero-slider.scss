@@ -32,7 +32,7 @@ main {
 
 #carouselSlider {
     position: relative;
-    height: 100vh;
+    height: calc(100vh + 8rem);
 
     .carousel-inner {
         height: 100%;
@@ -99,12 +99,16 @@ main {
                     font-weight: 300;
                     color: #fff;
                     margin-bottom: 1rem;
+                    
                 }
                 .hero-subtitle {
                     font-size: 3.75rem;
                     font-weight: 600;
                     color: #fff;
                     margin-bottom: 1.5rem;
+                    @media (max-width: 1650px) {
+                        font-size: 2.5rem;
+                    }
                 }
             }
         }
@@ -159,6 +163,10 @@ main {
                 }
             }
         }
+    }
+
+    @media (max-width: 1650px) {
+        height: calc(100vh + 6rem);
     }
 }
 
@@ -307,6 +315,17 @@ main {
                         p {
                             font-size: 1.125rem;
                         }
+                        @media (max-width: 1650px) {
+                            p {
+                                font-size: 1rem;
+                            }
+                        }
+                    }
+                    .btn-outline-primary {
+                        @media (max-width: 1650px) {
+                            padding: 0.875rem 1.4rem;
+                            font-size: 1rem;
+                        }
                     }
                     .service-page-banner-image {
                         min-width: 24.375rem;
@@ -317,6 +336,14 @@ main {
                             border-radius: 1.875rem;
                             min-width: 24.375rem;
                             max-height: 24.375rem;
+                        }
+                        @media (max-width: 1650px) {
+                            min-width: 20rem;
+                            max-height: 20rem;
+                            img {
+                                min-width: 20rem;
+                                max-height: 20rem;
+                            }
                         }
                     }
                     .carousel-description {
